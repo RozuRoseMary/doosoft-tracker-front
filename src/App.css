@@ -1,38 +1,39 @@
+* {
+  font-family: "Noto Serif Thai", "Lato", sans-serif;
+}
+
 .App {
-  text-align: center;
+  height: 100%;
+  background: linear-gradient(160deg, #cbdbf4 30%, #a5bdff 90%);
+  color: rgb(255, 255, 255);
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.opacity-container {
+  background-color: rgba(255, 255, 255, 0.346);
+  width: 50%;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.login-image {
+  background-image: url("https://img.freepik.com/free-photo/calculator-money-wallet-investment-saving-finance-concept-pink-background-3d-rendering_56104-1432.jpg?w=1380&t=st=1658169249~exp=1658169849~hmac=08e013eedeec1052d8ed307eaaf5db9bcdf5f7ea47caabd8e3ecbe6e1d82d727");
+  backdrop-filter: saturate(1);
+  height: 100vh;
+  width: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* object-fit: cover; */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* .login-image img {
+  width: 100%;
+  object-fit: cover;
+} */
