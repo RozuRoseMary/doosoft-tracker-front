@@ -9,9 +9,10 @@ import ProfilePage from "./pages/ProfilePage";
 function Router() {
   return (
     <Routes>
+      <Route path="/" element={<LoginPage />}></Route>
       <Route path="/login" element={<LoginPage />}></Route>
       <Route path="/register" element={<RegisterPage />}></Route>
-      <Route path="/" element={<TrackerPage />}>
+      <Route path="/auth" element={<TrackerPage />}>
         <Route path="profile/:userId" element={<ProfilePage />}></Route>
         <Route path="tracker" element={<ListPage />}></Route>
       </Route>

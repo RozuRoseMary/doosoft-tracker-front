@@ -2,25 +2,29 @@ import { IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Modal from "../ui/Modal";
-import axios from "../config/axios";
 import { useTracker } from "../contexts/TrackerContext";
+import { useMessage } from "../contexts/MessageContext";
+import { deleteExpenseApi, deleteIncomeApi } from "../api/tracker";
 
 function DeleteTracker({ id, type }) {
   const { getAllTracker } = useTracker();
+  const { setError } = useMessage();
 
   const [open, setOpen] = useState(false);
+
   const handleDelete = async () => {
     try {
       if (type === "INCOME") {
-        await axios.delete("/tracker/deleteIncome/" + id);
+        await deleteIncomeApi(id);
       } else {
-        await axios.delete("/tracker/deleteExpense/" + id);
+        await deleteExpenseApi(id);
       }
 
       await getAllTracker();
       setOpen(false);
     } catch (err) {
       console.log(err);
+      setError(err.response.data.message);
     }
   };
   return (

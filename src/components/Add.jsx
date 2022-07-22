@@ -1,31 +1,25 @@
-import {
-  Box,
-  Fab,
-  Icon,
-  IconButton,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { Box, Fab, TextField } from "@mui/material";
 import Input from "../ui/Input";
 import Modal from "../ui/Modal";
 import RadioButton from "../ui/RadioButton";
 import AddIcon from "@mui/icons-material/Add";
-import axios from "../config/axios";
 import { useTracker } from "../contexts/TrackerContext";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
+import { useMessage } from "../contexts/MessageContext";
+import { addTrackerApi } from "../api/tracker";
 
 function Add() {
+  const { setError } = useMessage();
+  const { getAllTracker } = useTracker();
+
+  const [open, setOpen] = useState(false);
   const [input, setInput] = useState({
     date: new Date(),
     itemName: "",
     amount: 0,
     type: "EXPENSE",
   });
-  const { getAllTracker } = useTracker();
-  const [error, setError] = useState("");
-
-  const [open, setOpen] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,9 +30,21 @@ function Add() {
   };
 
   const handleAddItem = async () => {
-    await axios.post("/tracker", input);
-    await getAllTracker();
-    setOpen(false);
+    try {
+      const res = await addTrackerApi(input);
+      await getAllTracker();
+      if (res) {
+        setInput({
+          date: new Date(),
+          itemName: "",
+          amount: 0,
+          type: "EXPENSE",
+        });
+      }
+      setOpen(false);
+    } catch (err) {
+      setError(err.response.data.message);
+    }
   };
 
   const dataAdd = [
@@ -94,7 +100,6 @@ function Add() {
           <DesktopDatePicker
             disableMaskedInput={true}
             label="Date desktop"
-            inputFormat="MM/dd/yyyy"
             onChange={(e) => {
               setInput({ ...input, date: e._d });
             }}
@@ -105,7 +110,6 @@ function Add() {
           {dataAdd.map((el, idx) => (
             <Input
               key={idx}
-              defaultValue={el.defaultValue}
               name={el.name}
               variant="outlined"
               icon={el.icon}

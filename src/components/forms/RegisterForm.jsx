@@ -9,20 +9,19 @@ import Input from "../../ui/Input";
 
 function RegisterForm() {
   const { register } = useAuth();
+  const navigate = useNavigate();
   const [userInput, setUserInput] = useState({
     email: "",
     password: "",
     confirmPassword: "",
   });
 
-  const navigate = useNavigate();
-
   const handleRegister = async (e) => {
     e.preventDefault();
     const res = await register(userInput);
 
     if (res) {
-      navigate("/tracker");
+      navigate("/auth/tracker");
     }
   };
 

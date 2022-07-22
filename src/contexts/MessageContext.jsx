@@ -3,8 +3,8 @@ import React, { createContext, useContext, useState } from "react";
 const MessageContext = createContext();
 
 export function MessageContextProvider({ children }) {
-  const [success, setSuccess] = useState("second");
-  const [error, setError] = useState("second");
+  const [success, setSuccess] = useState(null);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   return (

@@ -21,7 +21,7 @@ function Header() {
   return (
     <AppBar position="fixed">
       <Toolbar>
-        <Link href={"/tracker"} underline="none">
+        <Link href={"/auth/tracker"} underline="none">
           <IconButton
             size="large"
             edge="start"

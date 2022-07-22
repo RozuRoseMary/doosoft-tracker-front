@@ -1,10 +1,4 @@
-import React, {
-  Children,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   getAccessToken,
@@ -13,27 +7,23 @@ import {
 } from "../services/localStorage";
 import { useMessage } from "./MessageContext";
 import axios from "../config/axios";
+import { getUserApi, loginApi } from "../api/auth";
 
 const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
-  const { setError } = useMessage();
+  const { setError, setLoading } = useMessage();
 
   const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
-
-  //   TODO: getUser
-  //   TODO: register
-  //   TODO: login
-  //   TODO: logout
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const token = getAccessToken();
         if (token) {
-          const res = await axios.get("/user");
+          const res = await getUserApi();
           setUser(res.data.user);
         }
       } catch (err) {
@@ -47,6 +37,8 @@ export function AuthContextProvider({ children }) {
 
   const register = async (input) => {
     try {
+      setLoading(true);
+
       const res = await axios.post("/auth/register", input);
       setAccessToken(res.data.token);
 
@@ -55,29 +47,41 @@ export function AuthContextProvider({ children }) {
       navigate("/tracker");
     } catch (err) {
       setError(err.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   const login = async (input) => {
     try {
-      const res = await axios.post("/auth/login", input);
+      setLoading(true);
+
+      const res = await loginApi(input);
       setAccessToken(res.data.token);
 
       const resUser = await axios.get("/user");
       setUser(resUser.data.user);
-      navigate("/tracker");
+      navigate("/auth/tracker");
     } catch (err) {
       setError(err.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   const logout = async () => {
     try {
+      setLoading(true);
+
       removeAccessToken();
+
       setUser(null);
+
       navigate("/login");
     } catch (err) {
       setError(err.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 

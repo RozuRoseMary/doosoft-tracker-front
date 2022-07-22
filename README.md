@@ -1,5 +1,4 @@
-# src > config > env.js
+# Getting start
 
-## ACCESS_TOKEN
-
-## API_ENDPOINT_URL
+1. npm i
+2. npm start

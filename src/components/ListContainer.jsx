@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Divider,
-  IconButton,
   List,
   ListItem,
   ListItemText,
@@ -14,16 +13,13 @@ import {
   colorType,
   combineArr,
   groupByDate,
-  groupByType,
   lastIndex,
 } from "../services/tracker";
 import EditTracker from "./EditTracker";
 import DeleteTracker from "./DeleteTracker";
-import SelectUI from "../ui/SelectUI";
 
 function ListContainer() {
   const { getAllTracker, tracker } = useTracker();
-  const [open, setOpen] = useState(false);
   const [type, setType] = useState("ALL");
 
   useEffect(() => {
@@ -49,12 +45,9 @@ function ListContainer() {
 
   return (
     <>
-      {/* <Box>
-        <SelectUI />
-      </Box> */}
-
-      {groupByType?.map((groupDate) => (
+      {groupByType?.map((groupDate, idx) => (
         <List
+          key={idx}
           sx={{
             marginTop: "2rem",
             width: "100%",

@@ -12,6 +12,7 @@ function Input({
   value,
   onChange,
   color,
+  placeholder,
 }) {
   return (
     <Box sx={{ display: "flex", alignItems: "flex-end" }}>
@@ -29,6 +30,7 @@ function Input({
         value={value}
         onChange={onChange}
         color={color}
+        placeholder={placeholder}
       />
     </Box>
   );

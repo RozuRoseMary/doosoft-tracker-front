@@ -25,7 +25,7 @@ function Sidebar() {
   };
 
   const sidebarData = [
-    { title: "Tracker", to: "/tracker", icon: <IoToday /> },
+    { title: "Tracker", to: "/auth/tracker", icon: <IoToday /> },
     {
       title: "Logout",
       to: "",
@@ -51,7 +51,7 @@ function Sidebar() {
       }}
     >
       <List>
-        <ListItemButton onClick={() => navigate("/profile/" + user.id)}>
+        <ListItemButton onClick={() => navigate("/auth/profile/" + user.id)}>
           <ListItemIcon>
             <UserAvatar />
           </ListItemIcon>
